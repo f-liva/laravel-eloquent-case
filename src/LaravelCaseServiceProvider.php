@@ -35,7 +35,9 @@ class LaravelCaseServiceProvider extends ServiceProvider
 
         $this->app->bind(
             CaseBuilder::class,
-            fn ($app) => new CaseBuilder($app->make(Builder::class), new Grammar())
+            function ($app) {
+                return new CaseBuilder($app->make(Builder::class), new Grammar());
+            }
         );
     }
 }

@@ -11,25 +11,49 @@ use Throwable;
 
 class CaseBuilder
 {
-    public ?string $subject = null;
+    /**
+     * @var string|null
+     */
+    public $subject = null;
 
-    public array $whens = [];
+    /**
+     * @var array
+     */
+    public $whens = [];
 
-    public array $thens = [];
+    /**
+     * @var array
+     */
+    public $thens = [];
 
-    public ?string $else = null;
+    /**
+     * @var string|null
+     */
+    public $else = null;
 
-    public array $bindings = [
+    /**
+     * @var array|array[]
+     */
+    public $bindings = [
         'when' => [],
         'then' => [],
         'else' => [],
     ];
 
-    public bool $sum = false;
+    /**
+     * @var bool
+     */
+    public $sum = false;
 
-    public Grammar $grammar;
+    /**
+     * @var Grammar
+     */
+    public $grammar;
 
-    public QueryBuilder $queryBuilder;
+    /**
+     * @var QueryBuilder
+     */
+    public $queryBuilder;
 
     /**
      * @param QueryBuilder $queryBuilder
@@ -218,7 +242,9 @@ class CaseBuilder
     public function toRaw(): string
     {
         $bindings = array_map(
-            fn ($parameter) => is_string($parameter) ? $this->grammar->wrapValue($parameter) : $parameter,
+            function ($parameter) {
+                return is_string($parameter) ? $this->grammar->wrapValue($parameter) : $parameter;
+            },
             $this->getBindings()
         );
 
